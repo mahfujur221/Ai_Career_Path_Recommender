@@ -230,3 +230,27 @@ input:focus, select:focus, textarea:focus {
     gap: 0.5rem;
     color: #495057;
 }
+
+.progress-container {
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
