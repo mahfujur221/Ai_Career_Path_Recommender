@@ -411,3 +411,60 @@ function generateRecommendations() {
         interests: selectedInterests,
         skills: selectedSkills
     };
+
+    // Simulate AI processing time
+    setTimeout(() => {
+        // Calculate matches for all careers
+        const careersWithMatches = careerDatabase.map(career => {
+            const match = calculateCareerMatch(career, userData);
+            return {
+                ...career,
+                match
+            };
+        });
+
+        // Sort careers by match percentage (descending)
+        const sortedCareers = careersWithMatches.sort((a, b) => b.match - a.match);
+
+        // Clear previous results
+        careerResults.innerHTML = '';
+
+        // Display top 5 careers
+        sortedCareers.slice(0, 5).forEach(career => {
+            const careerCard = document.createElement('div');
+            careerCard.className = 'career-card';
+            careerCard.innerHTML = `
+                <div class="career-title">${career.title} <span style="font-size: 0.9rem; color: #6c757d; font-weight: normal;">(${career.category})</span></div>
+                <div class="career-match">${career.match}% Match</div>
+                <div class="career-description">${career.description}</div>
+                <div class="career-details">
+                    <div class="detail-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Avg. Salary: ${career.salary}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Job Growth: ${career.growth}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Education: ${career.education}</span>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${career.match}%"></div>
+                    </div>
+                </div>
+            `;
+            careerResults.appendChild(careerCard);
+        });
+
+        // Store results for comparison
+        window.currentResults = sortedCareers.slice(0, 5);
+
+        // Hide loading and show results
+        loadingElement.style.display = 'none';
+        resultsContainer.style.display = 'block';
+    }, 2000);
+}
