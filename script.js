@@ -268,3 +268,42 @@ function calculateCareerMatch(career, userData) {
         }
     });
     
+       const interestsScore = interestsMatch / Math.max(userInterests.length, 1) * interestsWeight;
+    matchScore += interestsScore;
+    maxPossibleScore += interestsWeight;
+
+    // Education match (15% weight)
+    const educationWeight = 15;
+    const educationLevels = {
+        "highschool": 0,
+        "associate": 1,
+        "bachelor": 2,
+        "master": 3,
+        "phd": 4
+    };
+    
+    const userEducationLevel = educationLevels[userData.education] || 0;
+    const requiredEducationLevel = educationLevels[career.minEducation] || 0;
+    
+    let educationScore = 0;
+    if (userEducationLevel >= requiredEducationLevel) {
+        educationScore = educationWeight;
+    } else {
+        // Partial credit if close to required level
+        const difference = requiredEducationLevel - userEducationLevel;
+        educationScore = Math.max(0, educationWeight - (difference * 5));
+    }
+    
+    matchScore += educationScore;
+    maxPossibleScore += educationWeight;
+
+    // Experience match (10% weight)
+    const experienceWeight = 10;
+    const experienceLevels = {
+        "0": 0,
+        "1": 1,
+        "3": 2,
+        "5": 3,
+        "10": 4
+    };
+    
