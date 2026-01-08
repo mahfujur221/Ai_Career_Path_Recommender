@@ -209,3 +209,27 @@ function initApp() {
         });
         interestsContainer.appendChild(interestElement);
     });
+
+    
+    // Populate skills
+    skills.forEach(skill => {
+        const skillElement = document.createElement('div');
+        skillElement.className = 'skill-tag';
+        skillElement.textContent = skill;
+        skillElement.addEventListener('click', () => {
+            // Limit selection to 5 skills
+            const selectedSkills = document.querySelectorAll('#skills-container .skill-tag.selected');
+            if (selectedSkills.length < 5 || skillElement.classList.contains('selected')) {
+                skillElement.classList.toggle('selected');
+            } else {
+                alert('Please select a maximum of 5 skills');
+            }
+        });
+        skillsContainer.appendChild(skillElement);
+    });
+
+    // Add event listeners
+    recommendBtn.addEventListener('click', generateRecommendations);
+    compareBtn.addEventListener('click', toggleComparison);
+    saveBtn.addEventListener('click', saveResults);
+}
