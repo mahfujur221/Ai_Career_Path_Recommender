@@ -347,4 +347,25 @@ function calculateCareerMatch(career, userData) {
         "senior": 2,
         "executive": 3
     };
+        let salaryScore = 0;
+    if (userSalary && careerSalary) {
+        const userSalaryLevel = salaryLevels[userSalary] || 0;
+        const careerSalaryLevel = salaryLevels[careerSalary] || 0;
+        
+        if (userSalaryLevel <= careerSalaryLevel) {
+            salaryScore = salaryWeight;
+        } else {
+            // Partial credit based on how close
+            const difference = userSalaryLevel - careerSalaryLevel;
+            salaryScore = Math.max(0, salaryWeight - (difference * 3));
+        }
+    }
     
+    matchScore += salaryScore;
+    maxPossibleScore += salaryWeight;
+
+    // Calculate final percentage
+    const finalPercentage = Math.min(100, Math.round((matchScore / maxPossibleScore) * 100));
+    
+    return finalPercentage;
+}
