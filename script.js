@@ -177,3 +177,35 @@ const skills = [
     "Research", "Design", "Marketing", "Sales", "Customer Service",
     "Analytics", "Strategy", "Technical Skills", "Interpersonal Skills"
 ];
+
+
+// DOM elements
+const interestsContainer = document.getElementById('interests-container');
+const skillsContainer = document.getElementById('skills-container');
+const recommendBtn = document.getElementById('recommend-btn');
+const loadingElement = document.getElementById('loading');
+const resultsContainer = document.getElementById('results-container');
+const careerResults = document.getElementById('career-results');
+const compareBtn = document.getElementById('compare-btn');
+const comparisonContainer = document.getElementById('comparison-container');
+const comparisonTable = document.getElementById('comparison-table');
+const saveBtn = document.getElementById('save-btn');
+
+// Initialize the app
+function initApp() {
+    // Populate interests
+    interests.forEach(interest => {
+        const interestElement = document.createElement('div');
+        interestElement.className = 'skill-tag';
+        interestElement.textContent = interest;
+        interestElement.addEventListener('click', () => {
+            // Limit selection to 5 interests
+            const selectedInterests = document.querySelectorAll('#interests-container .skill-tag.selected');
+            if (selectedInterests.length < 5 || interestElement.classList.contains('selected')) {
+                interestElement.classList.toggle('selected');
+            } else {
+                alert('Please select a maximum of 5 interests');
+            }
+        });
+        interestsContainer.appendChild(interestElement);
+    });
