@@ -306,4 +306,45 @@ function calculateCareerMatch(career, userData) {
         "5": 3,
         "10": 4
     };
+       const userExperienceLevel = experienceLevels[userData.experience] || 0;
+    const requiredExperienceLevel = experienceLevels[career.experienceLevel] || 0;
+    
+    let experienceScore = 0;
+    if (userExperienceLevel >= requiredExperienceLevel) {
+        experienceScore = experienceWeight;
+    } else {
+        // Partial credit based on how close
+        experienceScore = (userExperienceLevel / Math.max(requiredExperienceLevel, 1)) * experienceWeight;
+    }
+    
+    matchScore += experienceScore;
+    maxPossibleScore += experienceWeight;
+
+    // Work environment match (10% weight)
+    const environmentWeight = 10;
+    const userEnvironment = userData.workEnvironment;
+    const careerEnvironments = career.workEnvironment || [];
+    
+    let environmentScore = 0;
+    if (userEnvironment && careerEnvironments.includes(userEnvironment)) {
+        environmentScore = environmentWeight;
+    } else if (userEnvironment && careerEnvironments.length > 0) {
+        // Partial credit if some flexibility exists
+        environmentScore = environmentWeight * 0.5;
+    }
+    
+    matchScore += environmentScore;
+    maxPossibleScore += environmentWeight;
+
+    // Salary expectation match (10% weight)
+    const salaryWeight = 10;
+    const userSalary = userData.salaryExpectation;
+    const careerSalary = career.salaryRange;
+    
+    const salaryLevels = {
+        "entry": 0,
+        "mid": 1,
+        "senior": 2,
+        "executive": 3
+    };
     
