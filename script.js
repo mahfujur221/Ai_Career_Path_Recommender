@@ -511,3 +511,18 @@ function toggleComparison() {
         compareBtn.innerHTML = '<i class="fas fa-times"></i> Hide Comparison';
     }
 }
+
+
+// Save results (simulated)
+function saveResults() {
+    if (!window.currentResults || window.currentResults.length === 0) {
+        alert('Please generate recommendations first');
+        return;
+    }
+    
+    const userName = document.getElementById('name').value || 'User';
+    alert(`Career recommendations for ${userName} have been saved! You can access them anytime from your profile.`);
+}
+
+// Initialize the app when the DOM is loaded
+document.addEventListener('DOMContentLoaded', initApp);
