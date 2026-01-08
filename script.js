@@ -160,3 +160,20 @@ const careerDatabase = [
         salaryRange: "mid"
     }
 ];
+
+
+// Interests and skills data
+const interests = [
+    "Technology", "Healthcare", "Business", "Education", "Arts", 
+    "Science", "Engineering", "Marketing", "Finance", "Design",
+    "Writing", "Research", "Management", "Sales", "Analytics",
+    "Psychology", "Mathematics", "Problem Solving", "Creativity", "Strategy"
+];
+
+const skills = [
+    "Programming", "Data Analysis", "Project Management", "Communication", 
+    "Problem Solving", "Leadership", "Creativity", "Critical Thinking",
+    "Teamwork", "Time Management", "Public Speaking", "Writing",
+    "Research", "Design", "Marketing", "Sales", "Customer Service",
+    "Analytics", "Strategy", "Technical Skills", "Interpersonal Skills"
+];
