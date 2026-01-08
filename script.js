@@ -369,3 +369,45 @@ function calculateCareerMatch(career, userData) {
     
     return finalPercentage;
 }
+
+
+// Generate career recommendations
+function generateRecommendations() {
+    // Validate form
+    const name = document.getElementById('name').value;
+    const education = document.getElementById('education').value;
+    const experience = document.getElementById('experience').value;
+    const workEnvironment = document.getElementById('work-environment').value;
+    const salaryExpectation = document.getElementById('salary-expectation').value;
+    
+    if (!name || !education || !experience || !workEnvironment || !salaryExpectation) {
+        alert('Please fill in all required fields');
+        return;
+    }
+    
+    const selectedInterests = Array.from(document.querySelectorAll('#interests-container .skill-tag.selected'))
+        .map(el => el.textContent);
+        
+    const selectedSkills = Array.from(document.querySelectorAll('#skills-container .skill-tag.selected'))
+        .map(el => el.textContent);
+        
+    if (selectedInterests.length < 3 || selectedSkills.length < 3) {
+        alert('Please select at least 3 interests and 3 skills');
+        return;
+    }
+
+    // Show loading animation
+    loadingElement.style.display = 'block';
+    resultsContainer.style.display = 'none';
+    comparisonContainer.style.display = 'none';
+
+    // Prepare user data
+    const userData = {
+        name,
+        education,
+        experience,
+        workEnvironment,
+        salaryExpectation,
+        interests: selectedInterests,
+        skills: selectedSkills
+    };
