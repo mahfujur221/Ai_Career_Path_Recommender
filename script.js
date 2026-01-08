@@ -233,3 +233,38 @@ function initApp() {
     compareBtn.addEventListener('click', toggleComparison);
     saveBtn.addEventListener('click', saveResults);
 }
+
+
+// Calculate career match percentage
+function calculateCareerMatch(career, userData) {
+    let matchScore = 0;
+    let maxPossibleScore = 0;
+
+    // Skills match (30% weight)
+    const skillsWeight = 30;
+    const userSkills = userData.skills || [];
+    const careerSkills = career.skills || [];
+    
+    let skillsMatch = 0;
+    userSkills.forEach(skill => {
+        if (careerSkills.includes(skill)) {
+            skillsMatch++;
+        }
+    });
+    
+    const skillsScore = skillsMatch / Math.max(userSkills.length, 1) * skillsWeight;
+    matchScore += skillsScore;
+    maxPossibleScore += skillsWeight;
+
+    // Interests match (25% weight)
+    const interestsWeight = 25;
+    const userInterests = userData.interests || [];
+    const careerInterests = career.interests || [];
+    
+    let interestsMatch = 0;
+    userInterests.forEach(interest => {
+        if (careerInterests.includes(interest)) {
+            interestsMatch++;
+        }
+    });
+    
