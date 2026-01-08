@@ -468,3 +468,46 @@ function generateRecommendations() {
         resultsContainer.style.display = 'block';
     }, 2000);
 }
+
+
+// Toggle career comparison
+function toggleComparison() {
+    if (!window.currentResults || window.currentResults.length === 0) {
+        alert('Please generate recommendations first');
+        return;
+    }
+
+    if (comparisonContainer.style.display === 'block') {
+        comparisonContainer.style.display = 'none';
+        compareBtn.innerHTML = '<i class="fas fa-balance-scale"></i> Compare Careers';
+    } else {
+        // Build comparison table
+        comparisonTable.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Career</th>
+                    <th>Match</th>
+                    <th>Avg. Salary</th>
+                    <th>Job Growth</th>
+                    <th>Key Skills</th>
+                    <th>Min Education</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${window.currentResults.map(career => `
+                    <tr>
+                        <td><strong>${career.title}</strong></td>
+                        <td>${career.match}%</td>
+                        <td>${career.salary}</td>
+                        <td>${career.growth}</td>
+                        <td>${career.skills.slice(0, 3).join(', ')}</td>
+                        <td>${career.minEducation.charAt(0).toUpperCase() + career.minEducation.slice(1)}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        `;
+        
+        comparisonContainer.style.display = 'block';
+        compareBtn.innerHTML = '<i class="fas fa-times"></i> Hide Comparison';
+    }
+}
